@@ -1,6 +1,6 @@
 name: Azure Pipelines
 variables:
-  python.version: '3.7.6'
+  python.version: '3.7'
 stages:
 - stage: Build
   jobs:
