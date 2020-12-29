@@ -9,17 +9,17 @@ stages:
       vmImage: 'Ubuntu-18.04'
     steps:
     # Needed for Terraform VM deployment
+    - task: InstallSSHKey@0
+      inputs:
+        knownHostsEntry: 'known_hosts'
+        sshPublicKey: $(PUBLIC_KEY)
+        sshKeySecureFile: 'udacity_azure'
+
     - bash: |
         ls ~/.ssh/
         pwd
         ls -la
       displayName: 'Verify build environment (pre)'
-
-    # - task: InstallSSHKey@0
-    #   inputs:
-    #     knownHostsEntry: 'KNOWN_HOSTS_STRING'
-    #     sshPublicKey: 'PUBLIC_KEY'
-    #     sshKeySecureFile: 'id_rsa'
 
     # - task: ArchiveFiles@2
     #   displayName: 'Archive FakeRestAPI'
