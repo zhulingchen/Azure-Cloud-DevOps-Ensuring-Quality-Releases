@@ -30,6 +30,8 @@ stages:
         ls -la
       displayName: 'Verify build environment (pre)'
 
+    # install Terraform Azure Pipelines Extension by Microsoft DevLabs
+    # https://marketplace.visualstudio.com/items?itemName=ms-devlabs.custom-terraform-tasks
     - task: TerraformInstaller@0
       displayName: Install Terraform
       inputs:
