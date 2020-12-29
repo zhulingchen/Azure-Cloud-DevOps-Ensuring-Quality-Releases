@@ -25,6 +25,11 @@ stages:
         cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform/
       displayName: 'Copy terraform.tfvars'
 
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(python.version)'
+      displayName: 'Use Python $(python.version)'
+
     - bash: |
         echo Terraform variable definition file is $(tfvardef.secureFilePath)
         cd $(Agent.TempDirectory)
@@ -39,6 +44,8 @@ stages:
         cd $(System.DefaultWorkingDirectory)  
         pwd
         ls -la
+        python -V
+        pip -V
       displayName: 'Verify build environment (pre)'
 
     # install Terraform Azure Pipelines Extension by Microsoft DevLabs
