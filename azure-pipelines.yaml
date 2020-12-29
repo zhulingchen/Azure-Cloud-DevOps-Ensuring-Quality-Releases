@@ -22,7 +22,7 @@ stages:
         sshKeySecureFile: 'udacity_azure'
 
     - bash: |
-        cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform/
+        cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform/environments/test
       displayName: 'Copy terraform.tfvars'
 
     - task: UsePythonVersion@0
@@ -65,7 +65,7 @@ stages:
         backendAzureRmStorageAccountName: 'tstate12785'
         backendAzureRmContainerName: 'tstate'
         backendAzureRmKey: 'terraform.tfstate'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
     # - task: ArchiveFiles@2
     #   displayName: 'Archive FakeRestAPI'
