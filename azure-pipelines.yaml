@@ -16,12 +16,15 @@ stages:
         sshKeySecureFile: 'udacity_azure'
 
     - bash: |
-        echo $(System.DefaultWorkingDirectory)  # equivalent to $(Build.SourcesDirectory)
+        cd $(Agent.TempDirectory)
+        pwd
+        ls -la
         cd ~/.ssh/
         pwd
         ls -la
         cat known_hosts
-        cd $(System.DefaultWorkingDirectory)
+        # $(System.DefaultWorkingDirectory) is equivalent to $(Build.SourcesDirectory)
+        cd $(System.DefaultWorkingDirectory)  
         pwd
         ls -la
       displayName: 'Verify build environment (pre)'
