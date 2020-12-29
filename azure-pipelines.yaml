@@ -30,6 +30,11 @@ stages:
         ls -la
       displayName: 'Verify build environment (pre)'
 
+    - task: TerraformInstaller@0
+      displayName: Install Terraform
+      inputs:
+        terraformVersion: '0.13.5'
+
     # - task: ArchiveFiles@2
     #   displayName: 'Archive FakeRestAPI'
     #   inputs:
