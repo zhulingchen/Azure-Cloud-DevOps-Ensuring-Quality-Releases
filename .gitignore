@@ -6,3 +6,6 @@
 
 # do not track the shell script that sets up service principal information
 set_azure_env.sh
+
+# do not track terraform.tfvars that contains sensitive Azure account information
+terraform.tfvars
