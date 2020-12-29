@@ -6,7 +6,7 @@ stages:
   jobs:
   - job: Build
     pool:
-      name: 'Ubuntu-18.04'
+      vmImage: 'Ubuntu-18.04'
     steps:
     # Needed for Terraform VM deployment
     - bash: |
