@@ -16,11 +16,11 @@ stages:
         sshKeySecureFile: 'udacity_azure'
 
     - bash: |
-        echo $(System.DefaultWorkingDirectory)
-        echo $(Build.SourcesDirectory)
+        echo $(System.DefaultWorkingDirectory)  # equivalent to $(Build.SourcesDirectory)
         cd ~/.ssh/
         pwd
         ls -la
+        cat known_hosts
         cd $(System.DefaultWorkingDirectory)
         pwd
         ls -la
