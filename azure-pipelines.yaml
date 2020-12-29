@@ -19,6 +19,7 @@ stages:
         cd $(Agent.TempDirectory)
         pwd
         ls -la
+        cat udacity_azure.pub
         cd ~/.ssh/
         pwd
         ls -la
