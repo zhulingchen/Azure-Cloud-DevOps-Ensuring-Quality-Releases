@@ -9,7 +9,7 @@ stages:
       vmImage: 'Ubuntu-18.04'
     steps:
     - task: DownloadSecureFile@1
-      name: terraformvarsfile
+      name: tfvardef
       displayName: 'Download terraform.tfvars'
       inputs:
         secureFile: 'terraform.tfvars' 
@@ -26,6 +26,7 @@ stages:
       displayName: 'Copy terraform.tfvars'
 
     - bash: |
+        echo Terraform variable definition file is $(tfvardef.secureFilePath)
         cd $(Agent.TempDirectory)
         pwd
         ls -la
