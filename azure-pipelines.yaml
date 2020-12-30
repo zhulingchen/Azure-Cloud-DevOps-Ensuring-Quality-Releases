@@ -93,10 +93,6 @@ stages:
         archiveFile: '$(Build.ArtifactStagingDirectory)/fakerestapi-$(Build.BuildId).zip'
         verbose: true
 
-    - bash: |
-        zip -sf $(Build.ArtifactStagingDirectory)/fakerestapi-$(Build.BuildId).zip
-      displayName: 'View zip content'
-
     - task: PublishPipelineArtifact@1
       displayName: 'Publish FakeRestAPI artifact'
       inputs:
