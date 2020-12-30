@@ -138,7 +138,7 @@ stages:
             inputs:
               ConnectedServiceName: 'azurerm-sc'
               WebAppName: 'webapi-AppService'
-              appType: webApp
+              appType: apiApp
               Package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
               UseWebDeploy: true  # Argument aliases: enableCustomDeployment
               deploymentMethod: zipDeploy
