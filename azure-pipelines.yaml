@@ -31,6 +31,7 @@ stages:
       displayName: 'Use Python $(python.version)'
 
     - bash: |
+        echo Pipeline workspace dir is $(Pipeline.Workspace)
         echo Terraform variable definition file is $(tfvardef.secureFilePath)
         cd $(Agent.TempDirectory)
         pwd
@@ -111,23 +112,23 @@ stages:
         targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
         artifactName: 'drop-selenium'
 
-# - stage:
-#   jobs:
-#   - deployment: FakeRestAPI
-#     pool:
-#       vmImage: 'Ubuntu-18.04'
-#     environment: 'TEST'
-#     strategy:
-#       runOnce:
-#         deploy:
-#           steps:
-#           - task: AzureWebApp@1
-#             displayName: 'Deploy Azure Web App'
-#             inputs:
-#               azureSubscription: ''
-#               appName: ''
-#               appType: webApp
-#               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+- stage: WebAppDeployment
+  jobs:
+  - deployment: FakeRestAPI
+    pool:
+      vmImage: 'Ubuntu-18.04'
+    environment: 'TEST'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure WebApp'
+            inputs:
+              azureSubscription: 'azurerm-sc'
+              appName: 'udacity-ensuring-quality-releases'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
 
   # - deployment: VMDeploy
   #   displayName: NAME
