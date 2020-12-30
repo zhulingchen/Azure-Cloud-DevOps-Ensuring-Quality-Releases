@@ -125,23 +125,23 @@ stages:
       runOnce:
         deploy:
           steps:
-          # - task: AzureWebApp@1
-          #   displayName: 'Deploy Azure WebApp'
-          #   inputs:
-          #     azureSubscription: 'azurerm-sc'
-          #     appName: 'webapi-AppService'
-          #     appType: webApp
-          #     package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
-          #     deploymentMethod: zipDeploy
-          - task: AzureRMWebAppDeployment@4
+          - task: AzureWebApp@1
             displayName: 'Deploy Azure WebApp'
             inputs:
-              ConnectedServiceName: 'azurerm-sc'
-              WebAppName: 'webapi-AppService'
-              appType: apiApp
-              Package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
-              UseWebDeploy: true  # Argument aliases: enableCustomDeployment
+              azureSubscription: 'azurerm-sc'
+              appName: 'webapi-AppService'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
               deploymentMethod: zipDeploy
+          # - task: AzureRMWebAppDeployment@4
+          #   displayName: 'Deploy Azure WebApp'
+          #   inputs:
+          #     ConnectedServiceName: 'azurerm-sc'
+          #     WebAppName: 'webapi-AppService'
+          #     appType: apiApp
+          #     Package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
+          #     UseWebDeploy: true  # Argument aliases: enableCustomDeployment
+          #     deploymentMethod: zipDeploy
 
   - deployment: VM
     displayName: Deploy Virtual Machine
