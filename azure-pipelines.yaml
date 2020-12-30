@@ -92,6 +92,10 @@ stages:
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/fakerestapi-$(Build.BuildId).zip'
 
+    - bash: |
+        zip -sf $(Build.ArtifactStagingDirectory)/fakerestapi-$(Build.BuildId).zip
+      displayName: 'View zip content'
+
     - task: PublishPipelineArtifact@1
       displayName: 'Publish FakeRestAPI artifact'
       inputs:
@@ -130,6 +134,7 @@ stages:
               appName: 'webapi-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
+              deploymentMethod: zipDeploy
 
   - deployment: VM
     displayName: Deploy Virtual Machine
