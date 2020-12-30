@@ -126,7 +126,7 @@ stages:
             displayName: 'Deploy Azure WebApp'
             inputs:
               azureSubscription: 'azurerm-sc'
-              appName: 'udacity-ensuring-quality-releases'
+              appName: 'webapi-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
 
