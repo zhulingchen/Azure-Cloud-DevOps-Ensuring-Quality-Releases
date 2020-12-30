@@ -112,9 +112,10 @@ stages:
         targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
         artifactName: 'drop-selenium'
 
-- stage: WebAppDeployment
+- stage: Deployment
   jobs:
   - deployment: FakeRestAPI
+    displayName: Deploy FakeRestAPI
     pool:
       vmImage: 'Ubuntu-18.04'
     environment: 'TEST'
@@ -130,7 +131,8 @@ stages:
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
 
-  - deployment: VMDeploy
+  - deployment: VM
+    displayName: Deploy Virtual Machine
     environment:
       name: 'TEST'
       resourceType: VirtualMachine
