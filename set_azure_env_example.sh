@@ -1,5 +1,6 @@
 #!/bin/bash
-# run this script with source or .
+# run this script with source or . when terraform runs in local
+# no need to run this script if terraform runs in Azure Pipelines
 # ARM_CLIENT_SECRET (service principal password) cannot be retrieved after creation but can be reset, see https://stackoverflow.com/a/62971780/4458566
 
 echo "Setting environment variables for Terraform"
