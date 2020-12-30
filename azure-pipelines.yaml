@@ -133,6 +133,9 @@ stages:
           #     appType: webApp
           #     package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
           #     deploymentMethod: zipDeploy
+          - bash: |
+              pwd
+              ls -la
           - task: AzureRMWebAppDeployment@4
             displayName: 'Deploy Azure WebApp'
             inputs:
