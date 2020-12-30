@@ -83,24 +83,6 @@ stages:
     pool:
       vmImage: 'Ubuntu-18.04'
     steps:
-    - bash: |
-        echo Terraform variable definition file is $(tfvardef.secureFilePath)
-        cd $(Agent.TempDirectory)
-        pwd
-        ls -la
-        cat udacity_azure.pub
-        cd ~/.ssh/
-        pwd
-        ls -la
-        cat known_hosts
-        # $(System.DefaultWorkingDirectory) is equivalent to $(Build.SourcesDirectory)
-        cd $(System.DefaultWorkingDirectory)  
-        pwd
-        ls -la
-        python -V
-        pip -V
-      displayName: 'Verify build environment (pre)'
-
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
@@ -108,9 +90,26 @@ stages:
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
-      displayName: 'Upload Package'
-      artifact: drop-fakerestapi
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish FakeRestAPI artifact'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip' 
+        artifactName: 'drop-fakerestapi'
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive Selenium'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-selenium.zip'
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Selenium artifact'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-selenium.zip' 
+        artifactName: 'drop-selenium'
 
 # - stage:
 #   jobs:
