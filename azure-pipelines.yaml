@@ -129,7 +129,7 @@ stages:
           #   displayName: 'Deploy Azure WebApp'
           #   inputs:
           #     azureSubscription: 'azurerm-sc'
-          #     appName: 'webapi-AppService'
+          #     appName: 'lingchenzhu-webapi-AppService'
           #     appType: webApp
           #     package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
           #     deploymentMethod: zipDeploy
@@ -137,7 +137,7 @@ stages:
             displayName: 'Deploy Azure WebApp'
             inputs:
               azureSubscription: 'azurerm-sc'
-              WebAppName: 'webapi-AppService'
+              WebAppName: 'lingchenzhu-webapi-AppService'
               packageForLinux: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
               enableCustomDeployment: true
               DeploymentType: runFromZip
