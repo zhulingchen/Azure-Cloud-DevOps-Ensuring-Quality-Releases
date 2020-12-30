@@ -91,6 +91,7 @@ stages:
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/fakerestapi-$(Build.BuildId).zip'
+        verbose: true
 
     - bash: |
         zip -sf $(Build.ArtifactStagingDirectory)/fakerestapi-$(Build.BuildId).zip
@@ -109,6 +110,7 @@ stages:
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
+        verbose: true
 
     - task: PublishPipelineArtifact@1
       displayName: 'Publish Selenium artifact'
@@ -140,7 +142,7 @@ stages:
             inputs:
               ConnectedServiceName: 'azurerm-sc'
               WebAppName: 'webapi-AppService'
-              appType: webApp
+              appType: webAppLinux
               Package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
               UseWebDeploy: true  # Argument aliases: enableCustomDeployment
               deploymentMethod: zipDeploy
