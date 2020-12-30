@@ -119,7 +119,7 @@ stages:
   - deployment: FakeRestAPI
     displayName: Deploy FakeRestAPI
     pool:
-      vmImage: 'Ubuntu-18.04'
+      vmImage: 'windows-latest'
     environment: 'TEST'
     strategy:
       runOnce:
@@ -141,7 +141,7 @@ stages:
             inputs:
               ConnectedServiceName: 'azurerm-sc'
               WebAppName: 'webapi-AppService'
-              appType: webAppLinux
+              appType: webApp
               Package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
               UseWebDeploy: true  # Argument aliases: enableCustomDeployment
               deploymentMethod: zipDeploy
