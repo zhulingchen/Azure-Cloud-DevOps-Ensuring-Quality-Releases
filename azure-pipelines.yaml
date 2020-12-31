@@ -152,24 +152,20 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: Bash@3
-            inputs:
-              targetType: 'inline'
-              script: |
-                #! /bin/bash
-                
-                hostname
-                uname -a
-                cat /etc/*-release
-                sudo apt-get install software-properties-common -y
-                sudo apt-add-repository universe -y
-                sudo apt-get update -y
-                sudo apt-get install python3-pip -y
-                sudo apt-get install unzip -y
-                sudo apt-get install -y chromium-browser
-                sudo apt-get install -y chromium-chromedriver
-                python3 -m pip install --upgrade pip
-                pip3 install selenium
-                python3 -V
-                pip3 -V
-                python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
+          - bash: |
+              hostname
+              uname -a
+              cat /etc/*-release
+              sudo apt-get install software-properties-common -y
+              sudo apt-add-repository universe -y
+              sudo apt-get update -y
+              sudo apt-get install python3-pip -y
+              sudo apt-get install unzip -y
+              sudo apt-get install -y chromium-browser
+              sudo apt-get install -y chromium-chromedriver
+              python3 -m pip install --upgrade pip
+              pip3 install selenium
+              python3 -V
+              pip3 -V
+              python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
+            displayName: 'Run bash commands'
