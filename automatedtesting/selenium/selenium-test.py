@@ -16,3 +16,4 @@ def login (user, password):
 
 login('standard_user', 'secret_sauce')
 
+print('Selenium Test Finished!')
