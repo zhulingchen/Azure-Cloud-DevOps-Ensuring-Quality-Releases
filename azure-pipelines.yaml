@@ -167,6 +167,8 @@ stages:
               pip3 install selenium
               python3 -V
               pip3 -V
+              /usr/bin/chromium-browser --version
+              /usr/bin/chromedriver --version
               python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
               cd $(Pipeline.Workspace)/drop-selenium
               unzip -o selenium-$(Build.BuildId).zip
