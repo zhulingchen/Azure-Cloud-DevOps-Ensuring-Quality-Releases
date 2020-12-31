@@ -1,6 +1,16 @@
 name: Azure Pipelines
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - docs/README.md
+
 variables:
   python.version: '3.7'
+
 stages:
 - stage: Provision
   jobs:
@@ -133,14 +143,6 @@ stages:
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
               deploymentMethod: zipDeploy
-          # - task: AzureRmWebAppDeployment@4
-          #   displayName: 'Deploy Azure WebApp'
-          #   inputs:
-          #     azureSubscription: 'azurerm-sc'
-          #     WebAppName: 'lingchenzhu-webapi-AppService'
-          #     packageForLinux: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
-          #     enableCustomDeployment: true
-          #     DeploymentType: runFromZip
 
   - deployment: VM
     displayName: Deploy Virtual Machine
