@@ -4,7 +4,8 @@ trigger:
     - main
   paths:
     exclude:
-    - docs/README.md
+    - README.md
+    - screenshots/
 
 variables:
   python.version: '3.7'
