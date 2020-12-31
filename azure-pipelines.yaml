@@ -168,5 +168,9 @@ stages:
               python3 -V
               pip3 -V
               python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
-              python3 $(Pipeline.Workspace)/drop-selenium/selenium-test.py > /home/udacity/selenium.log
+              cd $(Pipeline.Workspace)/drop-selenium
+              unzip selenium-$(Build.BuildId).zip
+              pwd
+              ls -la
+              python3 selenium-test.py > /home/udacity/selenium.log
             displayName: 'Run bash commands'
