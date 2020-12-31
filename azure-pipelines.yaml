@@ -13,7 +13,8 @@ variables:
 stages:
 - stage: Provision
   jobs:
-  - job: Provision
+  - job: Provision-Azure-Infrastructure
+    displayName: Provision Azure Infrastructure
     pool:
       vmImage: 'ubuntu-18.04'
     steps:
@@ -89,7 +90,8 @@ stages:
 
 - stage: Build
   jobs:
-  - job: Build
+  - job: Build-Artifacts
+    displayName: Build Artifacts
     pool:
       vmImage: 'ubuntu-18.04'
     steps:
@@ -125,7 +127,7 @@ stages:
 
 - stage: Deployment
   jobs:
-  - deployment: FakeRestAPI
+  - deployment: Deployment-FakeRestAPI
     displayName: Deploy FakeRestAPI
     pool:
       vmImage: 'ubuntu-18.04'
@@ -143,7 +145,7 @@ stages:
               package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
               deploymentMethod: zipDeploy
 
-  - deployment: VM
+  - deployment: Deployment-VM
     displayName: Deploy Virtual Machine
     environment:
       name: 'TEST'
@@ -170,10 +172,24 @@ stages:
               /usr/bin/chromium-browser --version
               /usr/bin/chromedriver --version
               python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
+            displayName: 'Configure selenium'
+
+- stage: Test
+  jobs:
+  - deployment: Test-VM
+    displayName: Test on Virtual Machine
+    environment:
+      name: 'TEST'
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - bash: |
               cd $(Pipeline.Workspace)/drop-selenium
               find . -type f ! -name 'selenium-$(Build.BuildId).zip' -delete
               unzip -o selenium-$(Build.BuildId).zip
               pwd
               ls -la
               python3 selenium-test.py > /home/udacity/selenium.log
-            displayName: 'Run bash commands'
+            displayName: 'Run selenium tests'

@@ -18,7 +18,7 @@
    }
    ```
 
-   Since it is not a good practice to expose these sensitive Azure account information to the public github repo, we define them in the terraform variable definition file [terraform/environments/test/terraform.tfvars](terraform/environments/test/terraform.tfvars) and avoid tracking such file to the repo. Instead, we upload such file to Pipelines >> Library >> Secure files and download it in the Azure Pipelines YAML config file [azure-pipelines.yml](azure-pipelines.yml) with a DownloadSecureFile@1 task.
+   Since it is not a good practice to expose these sensitive Azure account information to the public github repo, we define them in the terraform variable definition file terraform/environments/test/terraform.tfvars and avoid tracking such file to the repo. Instead, we upload such file to Pipelines >> Library >> Secure files and download it in the Azure Pipelines YAML config file [azure-pipelines.yml](azure-pipelines.yml) with a DownloadSecureFile@1 task.
 
    ![Secure files](screenshots/secure_files.png)
 
