@@ -15,7 +15,7 @@ stages:
   jobs:
   - job: Provision
     pool:
-      vmImage: 'Ubuntu-18.04'
+      vmImage: 'ubuntu-18.04'
     steps:
     - task: DownloadSecureFile@1
       name: tfvardef
@@ -91,7 +91,7 @@ stages:
   jobs:
   - job: Build
     pool:
-      vmImage: 'Ubuntu-18.04'
+      vmImage: 'ubuntu-18.04'
     steps:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
@@ -128,7 +128,7 @@ stages:
   - deployment: FakeRestAPI
     displayName: Deploy FakeRestAPI
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-18.04'
     environment: 'TEST'
     strategy:
       runOnce:
@@ -160,6 +160,7 @@ stages:
                 
                 hostname
                 uname -a
+                cat /etc/*-release
                 sudo apt-get install software-properties-common -y
                 sudo apt-add-repository universe -y
                 sudo apt-get update -y
@@ -168,4 +169,6 @@ stages:
                 sudo apt-get install -y chromium-browser
                 sudo apt-get install -y chromium-chromedriver
                 pip3 install selenium
-                # export PATH=$PATH:some/path
+                python3 -V
+                pip3 -V
+                python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
