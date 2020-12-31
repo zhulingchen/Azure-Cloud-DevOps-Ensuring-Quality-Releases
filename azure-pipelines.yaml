@@ -168,6 +168,7 @@ stages:
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
                 sudo apt-get install -y chromium-chromedriver
+                python3 -m pip install --upgrade pip
                 pip3 install selenium
                 python3 -V
                 pip3 -V
