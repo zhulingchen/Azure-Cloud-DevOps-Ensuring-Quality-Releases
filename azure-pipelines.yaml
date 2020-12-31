@@ -125,22 +125,22 @@ stages:
       runOnce:
         deploy:
           steps:
-          # - task: AzureWebApp@1
-          #   displayName: 'Deploy Azure WebApp'
-          #   inputs:
-          #     azureSubscription: 'azurerm-sc'
-          #     appName: 'lingchenzhu-webapi-AppService'
-          #     appType: webApp
-          #     package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
-          #     deploymentMethod: zipDeploy
-          - task: AzureRmWebAppDeployment@4
+          - task: AzureWebApp@1
             displayName: 'Deploy Azure WebApp'
             inputs:
               azureSubscription: 'azurerm-sc'
-              WebAppName: 'lingchenzhu-webapi-AppService'
-              packageForLinux: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
-              enableCustomDeployment: true
-              DeploymentType: runFromZip
+              appName: 'lingchenzhu-webapi-AppService'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
+              deploymentMethod: zipDeploy
+          # - task: AzureRmWebAppDeployment@4
+          #   displayName: 'Deploy Azure WebApp'
+          #   inputs:
+          #     azureSubscription: 'azurerm-sc'
+          #     WebAppName: 'lingchenzhu-webapi-AppService'
+          #     packageForLinux: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
+          #     enableCustomDeployment: true
+          #     DeploymentType: runFromZip
 
   - deployment: VM
     displayName: Deploy Virtual Machine
