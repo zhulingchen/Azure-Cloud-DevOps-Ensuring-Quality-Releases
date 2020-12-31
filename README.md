@@ -1,6 +1,6 @@
 [![Build Status](https://dev.azure.com/lingchenzhu/Azure-Cloud-DevOps-Ensuring-Quality-Releases/_apis/build/status/zhulingchen.Azure-Cloud-DevOps-Ensuring-Quality-Releases?branchName=main)](https://dev.azure.com/lingchenzhu/Azure-Cloud-DevOps-Ensuring-Quality-Releases/_build/latest?definitionId=3&branchName=main)
 
-# Udacity DevOps Engineer for Microsoft Azure Nanodegree Program <br/> Project: Ensuring Quality Releases
+# Udacity DevOps Engineer for Microsoft Azure Nanodegree Program <br/><br/> Project: Ensuring Quality Releases
 
 ## Instructions
 
@@ -54,3 +54,9 @@
 8. Deploy FakeRestAPI artifact to the terraform deployed Azure App Service. The deployed webapp URL is [http://lingchenzhu-webapi-appservice.azurewebsites.net/](http://lingchenzhu-webapi-appservice.azurewebsites.net/) where `lingchenzhu-webapi-appservice` is the Azure App Service resource name in small letters.
 
 ![Deployed fakerestapi](screenshots/deployed_fakerestapi.png)
+
+9. After terraform deployed the virtual machine in Azure Pipelines, we need to manually register such virtual machine in Pipelines >> Environments >> TEST >> Add resource >> Select "Virtual machines" >> Next >> In Operating system, select "Linux". Then copy the Registration script, manually ssh login to the virtual machine, paste it in the console and run. Such registration script makes the deployed Linux virtual machine an Azure agent so Azure Pipelines can run bash commands there.
+
+![Environments VM](screenshots/environments_vm.png)
+
+10. Then Azure Pipelines can run bash commands on the virtual machine deployed by terraform.
