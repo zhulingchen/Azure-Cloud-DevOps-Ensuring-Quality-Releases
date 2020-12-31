@@ -13,7 +13,7 @@ variables:
 stages:
 - stage: Provision
   jobs:
-  - job: Provision-Azure-Infrastructure
+  - job: provision_azure_infrastructure
     displayName: Provision Azure Infrastructure
     pool:
       vmImage: 'ubuntu-18.04'
@@ -90,7 +90,7 @@ stages:
 
 - stage: Build
   jobs:
-  - job: Build-Artifacts
+  - job: build_artifacts
     displayName: Build Artifacts
     pool:
       vmImage: 'ubuntu-18.04'
@@ -127,7 +127,7 @@ stages:
 
 - stage: Deployment
   jobs:
-  - deployment: Deployment-FakeRestAPI
+  - deployment: deployment_fakerestapi
     displayName: Deploy FakeRestAPI
     pool:
       vmImage: 'ubuntu-18.04'
@@ -145,7 +145,7 @@ stages:
               package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
               deploymentMethod: zipDeploy
 
-  - deployment: Deployment-VM
+  - deployment: deployment_vm
     displayName: Deploy Virtual Machine
     environment:
       name: 'TEST'
@@ -176,7 +176,7 @@ stages:
 
 - stage: Test
   jobs:
-  - deployment: Test-VM
+  - deployment: test_vm
     displayName: Test on Virtual Machine
     environment:
       name: 'TEST'
