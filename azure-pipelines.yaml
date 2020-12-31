@@ -1,9 +1,7 @@
-name: Azure Pipelines
-
 trigger:
   branches:
     include:
-    - master
+    - main
   paths:
     exclude:
     - docs/README.md
