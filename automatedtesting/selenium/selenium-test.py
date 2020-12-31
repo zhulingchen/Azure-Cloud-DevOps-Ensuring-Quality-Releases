@@ -8,6 +8,7 @@ def login (user, password):
     print ('Starting the browser...')
     # --uncomment when running in Azure DevOps.
     options = ChromeOptions()
+    options.add_argument('--no-sandbox')
     options.add_argument("--headless") 
     driver = webdriver.Chrome(options=options)
     driver = webdriver.Chrome()

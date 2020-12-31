@@ -169,7 +169,7 @@ stages:
               pip3 -V
               python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
               cd $(Pipeline.Workspace)/drop-selenium
-              unzip selenium-$(Build.BuildId).zip
+              unzip -o selenium-$(Build.BuildId).zip
               pwd
               ls -la
               python3 selenium-test.py > /home/udacity/selenium.log
