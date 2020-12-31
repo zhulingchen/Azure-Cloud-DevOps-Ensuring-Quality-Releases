@@ -171,6 +171,7 @@ stages:
               /usr/bin/chromedriver --version
               python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
               cd $(Pipeline.Workspace)/drop-selenium
+              find . -type f ! -name 'selenium-$(Build.BuildId).zip' -delete
               unzip -o selenium-$(Build.BuildId).zip
               pwd
               ls -la
