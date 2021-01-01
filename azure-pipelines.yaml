@@ -179,16 +179,6 @@ stages:
               /usr/bin/chromedriver --version
               python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
             displayName: 'Configure selenium'
-          - bash: |
-              pwd
-              sudo apt-get install openjdk-11-jre-headless -y
-              java --version
-              wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.tgz -O jmeter.tgz
-              tar xzvf jmeter.tgz
-              rm -f jmeter.tgz
-              cd apache-jmeter-5.4/bin
-              ./jmeter --version
-            displayName: Configure JMeter
 
 - stage: Test
   jobs:
@@ -209,3 +199,18 @@ stages:
               ls -la
               python3 selenium-test.py > /home/udacity/selenium.log
             displayName: 'Run selenium tests'
+
+  - job: test_jmeter
+    displayName: Test JMeter
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+    - bash: |
+        sudo apt-get install openjdk-11-jre-headless -y
+        java --version
+        wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.tgz -O jmeter.tgz
+        tar xzvf jmeter.tgz
+        rm -f jmeter.tgz
+        cd apache-jmeter-5.4/bin
+        ./jmeter --version
+      displayName: Configure JMeter
