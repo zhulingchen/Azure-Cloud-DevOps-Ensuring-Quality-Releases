@@ -183,3 +183,13 @@ stages:
               ls -la
               python3 selenium-test.py > /home/udacity/selenium.log
             displayName: 'Run selenium tests'
+
+  - job: test_jmeter
+    displayName: JMeter Test
+      pool: 
+        vmImage: 'Ubuntu-18.04'
+      steps:
+      - task: JMeterInstaller@0
+        displayName: 'Install JMeter 5.3'
+        inputs:
+          jmeterVersion: '5.3'
