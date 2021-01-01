@@ -183,8 +183,8 @@ stages:
               pwd
               ls -la
               sudo mkdir -p /var/log/selenium
-              sudo chmod 775 /var/log/selenium
-              sudo python3 -u selenium-test.py 2>&1 | tee -a /var/log/selenium/selenium-test.log
+              sudo chmod 664 /var/log/selenium
+              sudo python3 -u selenium-test.py 2>&1 | sudo tee -a /var/log/selenium/selenium-test.log
             displayName: 'Run selenium tests'
 
   - job: test_jmeter
