@@ -197,7 +197,8 @@ stages:
               unzip -o selenium-$(Build.BuildId).zip
               pwd
               ls -la
-              python3 selenium-test.py > /home/udacity/selenium.log
+              mkdir /home/udacity/selenium
+              python3 selenium-test.py > /home/udacity/selenium/selenium-test.log
             displayName: 'Run selenium tests'
 
   - job: test_jmeter
@@ -210,7 +211,6 @@ stages:
         java -version
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.tgz -O jmeter.tgz
         tar xzvf jmeter.tgz
-        rm -f jmeter.tgz
         cd apache-jmeter-5.4/bin
         ./jmeter --version
       displayName: Configure JMeter
