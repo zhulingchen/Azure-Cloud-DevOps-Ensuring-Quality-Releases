@@ -178,12 +178,12 @@ stages:
           steps:
           - bash: |
               cd $(Pipeline.Workspace)/drop-selenium
-              find . -type f ! -name 'selenium-$(Build.BuildId).zip' -delete
+              find . -type f ! -name 'selenium-$(Build.BuildId).zip' -delete  # delete everything except 'selenium-$(Build.BuildId).zip'
               unzip -o selenium-$(Build.BuildId).zip
               pwd
               ls -la
-              mkdir /home/udacity/selenium
-              python3 selenium-test.py > /home/udacity/selenium/selenium-test.log
+              sudo mkdir -p /var/log/selenium
+              python3 -u selenium-test.py 2>&1 | tee -a /var/log/selenium/selenium-test.log
             displayName: 'Run selenium tests'
 
   - job: test_jmeter
