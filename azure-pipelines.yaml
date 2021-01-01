@@ -226,6 +226,8 @@ stages:
         java -version
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.tgz -O jmeter.tgz
         tar xzvf jmeter.tgz
+      displayName: Install JMeter
+    - bash: |
         cd apache-jmeter-5.4/bin
         ./jmeter --version
-      displayName: Configure JMeter
+      displayName: Verify JMeter
