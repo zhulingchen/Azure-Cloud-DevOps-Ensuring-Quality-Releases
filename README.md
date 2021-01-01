@@ -60,3 +60,7 @@
 ![Environments VM](screenshots/environments_vm.png)
 
 10. Then Azure Pipelines can run bash commands on the virtual machine deployed by terraform.
+
+11. [Create an Azure Log Analytics workspace.](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace-cli)
+
+    Run [deploy_log_analytics_workspace.sh](deploy_log_analytics_workspace.sh), or directly call `az deployment group create --resource-group udacity-ensuring-quality-releases --name deploy-log --template-file deploy_log_analytics_workspace.json`, and provide a string value for the parameter `workspaceName`, say `udacity-ensuring-quality-releases-log`.
