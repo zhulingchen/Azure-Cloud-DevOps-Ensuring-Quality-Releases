@@ -7,9 +7,6 @@ trigger:
     - README.md
     - screenshots/
 
-variables:
-  python.version: '3.7'
-
 stages:
 - stage: Provision
   jobs:
@@ -35,11 +32,6 @@ stages:
         cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform/environments/test
       displayName: 'Copy terraform.tfvars'
 
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '$(python.version)'
-      displayName: 'Use Python $(python.version)'
-
     - bash: |
         echo Pipeline workspace dir is $(Pipeline.Workspace)
         echo Terraform variable definition file is $(tfvardef.secureFilePath)
@@ -55,8 +47,6 @@ stages:
         cd $(System.DefaultWorkingDirectory)  
         pwd
         ls -la
-        python -V
-        pip -V
       displayName: 'Verify build environment (pre)'
 
     # install Terraform Azure Pipelines Extension by Microsoft DevLabs
