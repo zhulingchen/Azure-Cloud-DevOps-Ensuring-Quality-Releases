@@ -115,36 +115,6 @@ stages:
         targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
         artifactName: 'drop-selenium'
 
-    - task: ArchiveFiles@2
-      displayName: 'Archive JMeter'
-      inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
-        includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/jmeter-$(Build.BuildId).zip'
-        verbose: true
-
-    - task: PublishPipelineArtifact@1
-      displayName: 'Publish JMeter artifact'
-      inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)/jmeter-$(Build.BuildId).zip'
-        artifactName: 'drop-jmeter'
-
-    - task: ArchiveFiles@2
-      displayName: 'Archive Postman'
-      inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
-        includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/postman-$(Build.BuildId).zip'
-        verbose: true
-
-    - task: PublishPipelineArtifact@1
-      displayName: 'Publish Postman artifact'
-      inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)/postman-$(Build.BuildId).zip'
-        artifactName: 'drop-postman'
-
 - stage: Deployment
   jobs:
   - deployment: deployment_fakerestapi
