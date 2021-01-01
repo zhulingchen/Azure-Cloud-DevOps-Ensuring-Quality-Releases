@@ -207,7 +207,7 @@ stages:
     steps:
     - bash: |
         sudo apt-get install openjdk-11-jre-headless -y
-        java --version
+        java -version
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.tgz -O jmeter.tgz
         tar xzvf jmeter.tgz
         rm -f jmeter.tgz
