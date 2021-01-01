@@ -115,6 +115,21 @@ stages:
         targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
         artifactName: 'drop-selenium'
 
+    - task: ArchiveFiles@2
+      displayName: 'Archive JMeter'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/jmeter-$(Build.BuildId).zip'
+        verbose: true
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish JMeter artifact'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)/jmeter-$(Build.BuildId).zip'
+        artifactName: 'drop-jmeter'
+
 - stage: Deployment
   jobs:
   - deployment: deployment_fakerestapi
@@ -166,7 +181,7 @@ stages:
             displayName: 'Configure selenium'
           - bash: |
               pwd
-              sudo apt-get install openjdk-11-jre-headless
+              sudo apt-get install openjdk-11-jre-headless -y
               java --version
               wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.tgz -O jmeter.tgz
               tar xzvf jmeter.tgz
