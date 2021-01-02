@@ -64,3 +64,13 @@
 11. [Create an Azure Log Analytics workspace.](https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace-cli)
 
     Run [deploy_log_analytics_workspace.sh](deploy_log_analytics_workspace.sh), or directly call `az deployment group create --resource-group udacity-ensuring-quality-releases --name deploy-log --template-file deploy_log_analytics_workspace.json`, and provide a string value for the parameter `workspaceName`, say `udacity-ensuring-quality-releases-log`.
+
+12. [Install Log Analytics agent on Linux computers.](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/agent-linux)
+
+    Follow the instructions to install the agent using wrapper script: `wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh && sh onboard_agent.sh -w <YOUR WORKSPACE ID> -s <YOUR WORKSPACE PRIMARY KEY>`
+    
+    Both ID and primary key of the Log Analytics Workspace can be found in the Settings >> Agents management of the Log Analytics workspace and they can be set as secret variables for the pipeline.
+
+    ![Log analytics workspace agents management](screenshots/log_analytics_workspace_agents_management.png)
+
+13. [Collect custom logs with Log Analytics agent in Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-sources-custom-logs)
