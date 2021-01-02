@@ -223,13 +223,13 @@ stages:
     - bash: |
         apache-jmeter-5.4/bin/jmeter -n -t automatedtesting/jmeter/stress-test.jmx \
                                      -l log/jmeter/stress-test-result.csv \
-                                     -e -o log/jmeter/stress-test-html-report/ \
+                                     -e -f -o log/jmeter/stress-test-html-report \
                                      -j log/jmeter/jmeter-stress-test.log
       displayName: JMeter stress test
     - bash: |
         apache-jmeter-5.4/bin/jmeter -n -t automatedtesting/jmeter/endurance-test.jmx \
                                      -l log/jmeter/endurance-test-result.csv \
-                                     -e -o log/jmeter/endurance-test-html-report/ \
+                                     -e -f -o log/jmeter/endurance-test-html-report \
                                      -j log/jmeter/jmeter-endurance-test.log
       displayName: JMeter endurance test
     - task: PublishPipelineArtifact@1
