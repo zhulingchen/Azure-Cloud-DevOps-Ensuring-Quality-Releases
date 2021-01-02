@@ -215,7 +215,7 @@ stages:
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.tgz -O jmeter.tgz
         tar xzvf jmeter.tgz
         apache-jmeter-5.4/bin/jmeter --version
-        cd $(System.DefaultWorkingDirectory)
+        # create log directory
         mkdir -p log/jmeter
         pwd
         ls -la
@@ -250,4 +250,26 @@ stages:
     - bash: |
         npm install -g newman
         newman --version
-      displayName: Install newman
+        # create log directory
+        mkdir -p log/newman
+        pwd
+        ls -la
+      displayName: Install Newman
+    - bash: |
+        newman run automatedtesting/postman/regressiontest.json \
+                   --reporters cli,junit \
+                   --reporter-junit-export log/newman/regressiontest.xml \
+                   --suppress-exit-code
+      displayName: Newman regression test
+    - bash: |
+        newman run automatedtesting/postman/validationtest.json \
+                   -e automatedtesting/postman/validationtestenv.postman_environment.json \
+                   --reporters cli,junit \
+                   --reporter-junit-export log/newman/validationtest.xml \
+                   --suppress-exit-code
+      displayName: Newman validation test
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Newman logs'
+      inputs:
+        targetPath: '$(System.DefaultWorkingDirectory)/log/newman'
+        artifactName: 'drop-newman-logs'
