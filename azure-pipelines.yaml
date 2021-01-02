@@ -237,3 +237,17 @@ stages:
       inputs:
         targetPath: '$(System.DefaultWorkingDirectory)/log/jmeter'
         artifactName: 'drop-jmeter-logs'
+
+  - job: test_newman
+    displayName: Test Postman (using Newman CLI)
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps: 
+    - task: NodeTool@0
+      displayName: Install Node v12.X
+      inputs:
+        versionSpec: '12.x'
+    - bash: |
+        npm install newman
+        newman 
+      displayName: Install newman
