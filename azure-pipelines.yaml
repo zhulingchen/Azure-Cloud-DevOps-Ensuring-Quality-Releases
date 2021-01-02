@@ -198,19 +198,10 @@ stages:
               sudo cp /var/log/selenium/selenium-test.log log/selenium/selenium-test.log
               ls -la
             displayName: 'Run selenium tests'
-          - task: CopyFiles@2
-            displayName: 'Copy selenium logs'
-            inputs:
-              SourceFolder: '$(System.DefaultWorkingDirectory)'
-              Contents: 'log/selenium/selenium-test.log'
-              TargetFolder: '$(Build.ArtifactStagingDirectory)'
-              CleanTargetFolder: false
-              OverWrite: true
-              flattenFolders: true
           - task: PublishPipelineArtifact@1
-            displayName: 'Publish Selenium logs'
+            displayName: 'Publish selenium logs'
             inputs:
-              targetPath: '$(Build.ArtifactStagingDirectory)/selenium-test.log'
+              targetPath: '$(System.DefaultWorkingDirectory)/log/selenium/selenium-test.log'
               artifactName: 'drop-selenium-logs'
 
   - job: test_jmeter
@@ -224,16 +215,25 @@ stages:
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.tgz -O jmeter.tgz
         tar xzvf jmeter.tgz
         apache-jmeter-5.4/bin/jmeter --version
+        cd $(System.DefaultWorkingDirectory)
+        mkdir -p log/jmeter
+        pwd
+        ls -la
       displayName: Install JMeter
     - bash: |
         apache-jmeter-5.4/bin/jmeter -n -t automatedtesting/jmeter/stress-test.jmx \
-                                     -l automatedtesting/jmeter/stress-test-result.csv \
-                                     -e -o automatedtesting/jmeter/stress-test-html-report/ \
-                                     -j automatedtesting/jmeter/jmeter-stress-test.log
+                                     -l log/jmeter/stress-test-result.csv \
+                                     -e -o log/jmeter/stress-test-html-report/ \
+                                     -j log/jmeter/jmeter-stress-test.log
       displayName: JMeter stress test
     - bash: |
-        apache-jmeter-5.4/bin/jmeter -n -t ./automatedtesting/jmeter/endurance-test.jmx \
-                                     -l ./automatedtesting/jmeter/endurance-test-result.csv \
-                                     -e -o ./automatedtesting/jmeter/endurance-test-html-report/ \
-                                     -j ./automatedtesting/jmeter/jmeter-endurance-test.log
+        apache-jmeter-5.4/bin/jmeter -n -t automatedtesting/jmeter/endurance-test.jmx \
+                                     -l log/jmeter/endurance-test-result.csv \
+                                     -e -o log/jmeter/endurance-test-html-report/ \
+                                     -j log/jmeter/jmeter-endurance-test.log
       displayName: JMeter endurance test
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish JMeter logs'
+      inputs:
+        targetPath: '$(System.DefaultWorkingDirectory)/log/jmeter'
+        artifactName: 'drop-jmeter-logs'
