@@ -248,6 +248,6 @@ stages:
       inputs:
         versionSpec: '12.x'
     - bash: |
-        npm install newman
-        newman 
+        npm install -g newman
+        newman --version
       displayName: Install newman
