@@ -184,11 +184,30 @@ stages:
               find . -type f ! -name 'selenium-$(Build.BuildId).zip' -delete  # delete everything except 'selenium-$(Build.BuildId).zip'
               unzip -o selenium-$(Build.BuildId).zip
               pwd
-              ls -la
               sudo mkdir -p /var/log/selenium
               sudo chmod 664 /var/log/selenium
               sudo python3 -u selenium-test.py 2>&1 | sudo tee -a /var/log/selenium/selenium-test.log
+              ls -la
+              # copy selenium log file to $(System.DefaultWorkingDirectory)/log/selenium/
+              cd $(System.DefaultWorkingDirectory)
+              mkdir -p log/selenium
+              pwd
+              sudo cp /var/log/selenium/selenium-test.log log/selenium/selenium-test.log
+              ls -la
             displayName: 'Run selenium tests'
+          - task: CopyFiles@2
+            displayName: 'Copy selenium logs'
+            inputs:
+              SourceFolder: '$(System.DefaultWorkingDirectory)'
+              Contents: 'log/selenium/selenium-test.log'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
+              CleanTargetFolder: false
+              OverWrite: true
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish Selenium logs'
+            inputs:
+              targetPath: '$(Build.ArtifactStagingDirectory)/selenium-test.log'
+              artifactName: 'drop-selenium-logs'
 
   - job: test_jmeter
     displayName: Test JMeter
