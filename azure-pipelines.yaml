@@ -272,7 +272,6 @@ stages:
         versionSpec: '12.x'
     - bash: |
         npm install -g newman
-        npm install -g newman-reporter-junitfull
         newman --version
         # create log directory
         mkdir -p log/newman
@@ -282,26 +281,27 @@ stages:
     - bash: |
         newman run automatedtesting/postman/regression-test.json \
                    --reporters cli,junit \
-                   --reporter-junitfull-export log/newman/regression-test.xml \
+                   --reporter-junit-export log/newman/regression-test.xml \
                    --suppress-exit-code
       displayName: Newman regression test
     - bash: |
         newman run automatedtesting/postman/validation-test.json \
                    -e automatedtesting/postman/validation-test-env.postman-environment.json \
                    --reporters cli,junit \
-                   --reporter-junitfull-export log/newman/validation-test.xml \
+                   --reporter-junit-export log/newman/validation-test.xml \
                    --suppress-exit-code
         ls -la $(System.DefaultWorkingDirectory)/log/newman/
       displayName: Newman validation test
-    - task: PublishTestResults@2
-      displayName: 'Publish Newman test results'
-      inputs:
-        testRunner: 'JUnit'
-        testResultsFiles: '$(System.DefaultWorkingDirectory)/log/newman/*-test.xml'
-        mergeTestResults: true
-        testRunTitle: 'Publish Newman test results'
     - task: PublishPipelineArtifact@1
       displayName: Publish Newman logs
       inputs:
         targetPath: '$(System.DefaultWorkingDirectory)/log/newman'
         artifactName: 'drop-newman-logs'
+    - task: PublishTestResults@2
+      displayName: 'Publish Newman test results'
+      inputs:
+        testRunner: 'JUnit'
+        searchFolder: '$(System.DefaultWorkingDirectory)/log/newman'
+        testResultsFiles: '*.xml'
+        mergeTestResults: true
+        testRunTitle: 'Publish Newman test results'
