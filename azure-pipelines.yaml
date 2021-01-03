@@ -292,11 +292,6 @@ stages:
                    --reporter-junitfull-export log/newman/validation-test.xml \
                    --suppress-exit-code
       displayName: Newman validation test
-    - task: PublishPipelineArtifact@1
-      displayName: Publish Newman logs
-      inputs:
-        targetPath: '$(System.DefaultWorkingDirectory)/log/newman'
-        artifactName: 'drop-newman-logs'
     - task: PublishTestResults@2
       displayName: 'Publish Newman test results'
       inputs:
@@ -304,3 +299,8 @@ stages:
         testResultsFiles: '$(System.DefaultWorkingDirectory)/log/newman/*.xml'
         mergeTestResults: true
         testRunTitle: 'Publish Newman test results'
+    - task: PublishPipelineArtifact@1
+      displayName: Publish Newman logs
+      inputs:
+        targetPath: '$(System.DefaultWorkingDirectory)/log/newman'
+        artifactName: 'drop-newman-logs'
