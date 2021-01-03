@@ -291,12 +291,13 @@ stages:
                    --reporters cli,junit \
                    --reporter-junitfull-export log/newman/validation-test.xml \
                    --suppress-exit-code
+        ls -la $(System.DefaultWorkingDirectory)/log/newman/
       displayName: Newman validation test
     - task: PublishTestResults@2
       displayName: 'Publish Newman test results'
       inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: '$(System.DefaultWorkingDirectory)/log/newman/*.xml'
+        testRunner: 'JUnit'
+        testResultsFiles: '$(System.DefaultWorkingDirectory)/log/newman/*-test.xml'
         mergeTestResults: true
         testRunTitle: 'Publish Newman test results'
     - task: PublishPipelineArtifact@1
