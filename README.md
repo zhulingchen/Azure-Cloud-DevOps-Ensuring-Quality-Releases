@@ -82,3 +82,7 @@
 13. [JMeter Command Line Options reference](http://sqa.fyicenter.com/1000056_JMeter_Command_Line_Options.html)
 
 14. [Newman Command Line Options reference](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/)
+
+15. Verify Azure Monitor Logs collected from the Log Analytics agent installed on the deployed VM.
+
+    ![Logs collected from VM](screenshots/azure_log_analytics_logs_from_vm.png)
