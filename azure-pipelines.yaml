@@ -17,7 +17,7 @@ stages:
     steps:
     - task: DownloadSecureFile@1
       name: tfvardef
-      displayName: 'Download terraform.tfvars'
+      displayName: Download terraform.tfvars
       inputs:
         secureFile: 'terraform.tfvars' 
 
@@ -30,7 +30,7 @@ stages:
 
     - bash: |
         cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform/environments/test
-      displayName: 'Copy terraform.tfvars'
+      displayName: Copy terraform.tfvars
 
     - bash: |
         echo Pipeline workspace dir is $(Pipeline.Workspace)
@@ -47,7 +47,7 @@ stages:
         cd $(System.DefaultWorkingDirectory)  
         pwd
         ls -la
-      displayName: 'Verify build environment (pre)'
+      displayName: Verify build environment (pre)
 
     # install Terraform Azure Pipelines Extension by Microsoft DevLabs
     # https://marketplace.visualstudio.com/items?itemName=ms-devlabs.custom-terraform-tasks
@@ -57,7 +57,7 @@ stages:
         terraformVersion: '0.13.5'
 
     - task: TerraformTaskV1@0
-      displayName: 'Terraform Init'
+      displayName: Terraform Init
       inputs:
         provider: 'azurerm'
         command: 'init'
@@ -69,7 +69,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
     - task: TerraformTaskV1@0
-      displayName: 'Terraform Apply'
+      displayName: Terraform Apply
       inputs:
         provider: 'azurerm'
         command: 'apply'
@@ -86,7 +86,7 @@ stages:
       vmImage: 'ubuntu-18.04'
     steps:
     - task: ArchiveFiles@2
-      displayName: 'Archive FakeRestAPI'
+      displayName: Archive FakeRestAPI
       inputs:
         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/fakerestapi'
         includeRootFolder: false
@@ -95,13 +95,13 @@ stages:
         verbose: true
 
     - task: PublishPipelineArtifact@1
-      displayName: 'Publish FakeRestAPI artifact'
+      displayName: Publish FakeRestAPI artifact
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)/fakerestapi-$(Build.BuildId).zip'
         artifactName: 'drop-fakerestapi'
 
     - task: ArchiveFiles@2
-      displayName: 'Archive Selenium'
+      displayName: Archive Selenium
       inputs:
         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
         includeRootFolder: false
@@ -110,7 +110,7 @@ stages:
         verbose: true
 
     - task: PublishPipelineArtifact@1
-      displayName: 'Publish Selenium artifact'
+      displayName: Publish Selenium artifact
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
         artifactName: 'drop-selenium'
@@ -127,7 +127,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure WebApp'
+            displayName: Deploy Azure WebApp
             inputs:
               azureSubscription: 'azurerm-sc'
               appName: 'lingchenzhu-webapi-AppService'
@@ -169,7 +169,7 @@ stages:
               sudo /opt/microsoft/omsagent/bin/service_control restart ${AZURE_LOG_ANALYTICS_ID}
             env:  # To use secret variables in a script, we must explicitly map them as environment variables.
               AZURE_LOG_ANALYTICS_ID: $(AZURE_LOG_ANALYTICS_ID)
-            displayName: 'Configure selenium'
+            displayName: Configure selenium
 
 - stage: Test
   jobs:
@@ -197,9 +197,9 @@ stages:
               pwd
               sudo cp /var/log/selenium/selenium-test.log log/selenium/selenium-test.log
               ls -la
-            displayName: 'Run selenium tests'
+            displayName: Run selenium tests
           - task: PublishPipelineArtifact@1
-            displayName: 'Publish selenium logs'
+            displayName: Publish selenium logs
             inputs:
               targetPath: '$(System.DefaultWorkingDirectory)/log/selenium/selenium-test.log'
               artifactName: 'drop-selenium-logs'
@@ -232,8 +232,31 @@ stages:
                                      -e -f -o log/jmeter/endurance-test-html-report \
                                      -j log/jmeter/jmeter-endurance-test.log
       displayName: JMeter endurance test
+    - task: ArchiveFiles@2
+      displayName: Archive JMeter stress test HTML report
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/log/jmeter/stress-test-html-report'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(System.DefaultWorkingDirectory)/log/jmeter/stress-test-html-report-$(Build.BuildId).zip'
+        verbose: true
+    - task: ArchiveFiles@2
+      displayName: Archive JMeter endurance test HTML report
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/log/jmeter/endurance-test-html-report'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(System.DefaultWorkingDirectory)/log/jmeter/endurance-test-html-report-$(Build.BuildId).zip'
+        verbose: true
+    - bash: |
+        rm -rf log/jmeter/stress-test-html-report
+        rm -rf log/jmeter/endurance-test-html-report
+        cd log/jmeter
+        pwd
+        ls -la
+      displayName: Delete original JMeter test HTML reports
     - task: PublishPipelineArtifact@1
-      displayName: 'Publish JMeter logs'
+      displayName: Publish JMeter logs
       inputs:
         targetPath: '$(System.DefaultWorkingDirectory)/log/jmeter'
         artifactName: 'drop-jmeter-logs'
@@ -269,7 +292,7 @@ stages:
                    --suppress-exit-code
       displayName: Newman validation test
     - task: PublishPipelineArtifact@1
-      displayName: 'Publish Newman logs'
+      displayName: Publish Newman logs
       inputs:
         targetPath: '$(System.DefaultWorkingDirectory)/log/newman'
         artifactName: 'drop-newman-logs'
