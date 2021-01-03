@@ -9,3 +9,6 @@ set_azure_env.sh
 
 # do not track terraform.tfvars that contains sensitive Azure account information
 terraform.tfvars
+
+# do not track submission directory
+submission

@@ -5,6 +5,7 @@ trigger:
   paths:
     exclude:
     - README.md
+    - .gitignore
     - screenshots/
 
 stages:
