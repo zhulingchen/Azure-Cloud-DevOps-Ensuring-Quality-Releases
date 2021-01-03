@@ -80,3 +80,5 @@
     ![Log analytics workspace custom logs](screenshots/log_analytics_workspace_custom_logs.png)
 
 13. [JMeter Command Line Options reference](http://sqa.fyicenter.com/1000056_JMeter_Command_Line_Options.html)
+
+14. [Newman Command Line Options reference](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/)

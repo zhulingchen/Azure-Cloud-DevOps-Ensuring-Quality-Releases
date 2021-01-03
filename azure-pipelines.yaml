@@ -282,13 +282,15 @@ stages:
     - bash: |
         newman run automatedtesting/postman/regression-test.json \
                    --reporters cli,junit \
-                   --reporter-junitfull-export log/newman/regression-test.xml
+                   --reporter-junitfull-export log/newman/regression-test.xml \
+                   --suppress-exit-code
       displayName: Newman regression test
     - bash: |
         newman run automatedtesting/postman/validation-test.json \
                    -e automatedtesting/postman/validation-test-env.postman-environment.json \
                    --reporters cli,junit \
-                   --reporter-junitfull-export log/newman/validation-test.xml
+                   --reporter-junitfull-export log/newman/validation-test.xml \
+                   --suppress-exit-code
       displayName: Newman validation test
     - task: PublishPipelineArtifact@1
       displayName: Publish Newman logs
