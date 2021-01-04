@@ -307,7 +307,6 @@ stages:
         mergeTestResults: true
         testRunTitle: 'Publish Newman test results'
 
-stages:
 - stage: Destroy
   jobs:
   - job: destroy_azure_infrastructure
