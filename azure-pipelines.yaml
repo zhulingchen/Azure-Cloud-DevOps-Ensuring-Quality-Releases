@@ -167,7 +167,7 @@ stages:
               # Install Log Analytics agent on Linux computers (only need to run once)
               # wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh
               # sh onboard_agent.sh -w ${AZURE_LOG_ANALYTICS_ID} -s ${AZURE_LOG_ANALYTICS_PRIMARY_KEY}
-              sudo /opt/microsoft/omsagent/bin/service_control restart ${AZURE_LOG_ANALYTICS_ID}
+              # sudo /opt/microsoft/omsagent/bin/service_control restart ${AZURE_LOG_ANALYTICS_ID}
             env:  # To use secret variables in a script, we must explicitly map them as environment variables.
               AZURE_LOG_ANALYTICS_ID: $(AZURE_LOG_ANALYTICS_ID)
             displayName: Configure selenium
